@@ -23,7 +23,7 @@ const authenticateToken = (req) => {
 };
 
 module.exports = async function (context, req) {
-  if (req.method === 'POST' && req.url === '/register') {
+  if (req.method === 'POST' && req.url === '/api/register') {
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -40,7 +40,7 @@ module.exports = async function (context, req) {
     users.set(username, { username, password: hashedPassword });
 
     context.res = { status: 201, body: { message: 'User registered successfully' } };
-  } else if (req.method === 'POST' && req.url === '/login') {
+  } else if (req.method === 'POST' && req.url === '/api/login') {
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -69,7 +69,7 @@ module.exports = async function (context, req) {
     );
 
     context.res = { body: { token } };
-  } else if (req.method === 'GET' && req.url === '/protected') {
+  } else if (req.method === 'GET' && req.url === '/api/protected') {
     const result = authenticateToken(req);
 
     if (result.status) {
