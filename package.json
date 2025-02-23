@@ -3,13 +3,13 @@
     "version": "1.0.0",
     "description": "Azure Function for Node.js API",
     "scripts": {
-      "start": "func start",
-      "test": "echo \"No tests yet\" && exit 0"
+        "start": "func start",
+        "test": "echo \"No tests yet\" && exit 0"
     },
     "dependencies": {
-      "@azure/functions": "^4.6.1",
-      "bcryptjs": "^2.4.3",
-      "dotenv": "^16.4.5",
-      "jsonwebtoken": "^9.0.2"
+        "@azure/functions": "^4.6.1",
+        "bcryptjs": "^2.4.3",
+        "dotenv": "^16.4.7",
+        "jsonwebtoken": "^9.0.2"
     }
-  }
+}
