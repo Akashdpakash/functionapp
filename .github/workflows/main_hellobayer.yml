@@ -10,8 +10,10 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './MyHttpTrigger' # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '20.x' # set this to the node version to use (supports 8.x, 10.x, 12.x)
+  AzureWebJobsStorage: ${{ secrets.AZURE_WEBJOBS_STORAGE }}
+  AzureWebJobsStorage__accountName: "hellobayerstorage"
 
 jobs:
   build:
@@ -36,7 +38,6 @@ jobs:
           npm run build --if-present
           npm run test --if-present
           popd
-
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
@@ -65,9 +66,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C23544DFF0C84AA9A75117C5E2FA8806 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_AD482FF48342442E8D7BC2F0379CE66F }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_009C3813E54E4766A059C03986DEA5C6 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_459C3089085C402C9DB8A54EBEDC42ED }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BCB0F123B2BC4628A6ED65130CDF1299 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_BC0B6724EED541D4911DE922EF790540 }}
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
@@ -76,4 +77,3 @@ jobs:
           app-name: 'hellobayer'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          
